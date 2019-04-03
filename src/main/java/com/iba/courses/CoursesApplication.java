@@ -14,8 +14,8 @@ public class CoursesApplication {
         service.init();
         service.connect();
         System.out.println(service.execute("/DIS TRAN ADDINV"));*/
-        FTPService ftpService=new FTPService();
-        ftpService.execute("job");
+        /*FTPService ftpService=new FTPService();
+        ftpService.execute("job");*/
     }
 
 }

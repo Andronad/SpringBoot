@@ -1,15 +1,18 @@
 package com.iba.courses.service;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.apache.commons.net.ftp.FTPClient;
 import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+@Service
 public class FTPService {
-   public void execute(String fileJob)  {
+   public String execute(String fileJob)  {
         String serverName ="172.20.2.116"  ;
         String userName ="USER18F" ;
         String password ="ANDRONAD" ;
@@ -48,61 +51,25 @@ public class FTPService {
             String replyText = ftp.getReplyString() ;
             System.out.println("after submiting");
             System.out.println (replyText) ;
-            InputStream is = ftp.retrieveFileStream("JOB08890");
-
+            int i=replyText.indexOf("JOB");
+            String name=replyText.substring(i,i+8);
+            InputStream is = ftp.retrieveFileStream(name);
+            StringBuilder sb=new StringBuilder();
             if (is != null){
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-                String currentLine="";
-                while((currentLine = br.readLine()) != null){
-
-                    System.out.println(currentLine);
-                }
-
-            }
-            System.out.println("end");
-            //NOT WORKING
-            /*ftp.retrieveFileStream("USER18F.JCL(TEMPJOB)");
-
-            String replyText = ftp.getReplyString();
-            System.out.println("some " + replyText);
-
-            String[] replies = ftp.getReplyStrings();
-            String remoteFileName = replies[replies.length - 1].split(" ")[2]+ ".2";
-
-
-            for(String rep :replies){
-
-                System.out.println("checking .. " + rep);
-            }
-
-            Thread.sleep(10000);
-
-            System.out.println("getting sysout of the file " + remoteFileName);
-
-            InputStream is = ftp.retrieveFileStream(remoteFileName);
-            replies = ftp.getReplyStrings();
-            for(String rep :replies){
-
-                System.out.println("checking 2 .. " + rep);
-            }
-
-            if (is != null){
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
                 String currentLine="";
                 while((currentLine = br.readLine()) != null){
 
-                    System.out.println(currentLine);
+                    sb.append(currentLine);
+                    sb.append('\n');
                 }
 
             }
-
-            ftp.completePendingCommand();
-
-            System.out.println("Done...");*/
+            String response=new String (sb);
+            return response;
 
         }
         catch  (Exception e) {
@@ -115,5 +82,6 @@ public class FTPService {
         catch  (Exception e) {
             e.printStackTrace() ;
         }
+        return null;
     }
 }
