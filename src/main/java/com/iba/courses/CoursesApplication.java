@@ -1,5 +1,6 @@
 package com.iba.courses;
 
+import com.iba.courses.service.FTPService;
 import com.iba.courses.service.IMSService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,8 @@ public class CoursesApplication {
         service.init();
         service.connect();
         System.out.println(service.execute("/DIS TRAN ADDINV"));*/
+        FTPService ftpService=new FTPService();
+        ftpService.execute("job");
     }
 
 }

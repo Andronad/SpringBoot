@@ -96,6 +96,17 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/src/libs/ImsESConnectAPIJavaV3R2Fix1-1.0.0.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockftpserver</groupId>
+            <artifactId>MockFtpServer</artifactId>
+            <version>2.7.1</version>
+            <scope>system</scope>
+        </dependency>
     </dependencies>
 
     <build>
