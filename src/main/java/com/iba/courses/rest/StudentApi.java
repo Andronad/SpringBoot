@@ -1,6 +1,7 @@
 package com.iba.courses.rest;
 
 import com.iba.courses.domain.Student;
+import com.iba.courses.service.DB2Service;
 import com.iba.courses.service.IMSService;
 import com.iba.courses.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class StudentApi {
     @Autowired
     private StudentService studentService;
     private IMSService imsService = new IMSService();
+    private DB2Service db2Service = new DB2Service();
 
     @CrossOrigin("http://localhost:4200")
 
@@ -43,6 +46,13 @@ public class StudentApi {
         imsService.init();
         imsService.connect();
         return Collections.singletonMap("response", imsService.execute("/" + myCommand));
+    }
+
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping("/initializeDB2/{command}")
+    private Map initDB2(@PathVariable String command) throws SQLException {
+        db2Service.init();
+        return  Collections.singletonMap("response", db2Service.execute( command));
     }
 
 

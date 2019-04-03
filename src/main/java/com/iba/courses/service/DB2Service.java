@@ -11,13 +11,11 @@ public class DB2Service {
     private Statement statement;
 
     public void init() throws SQLException {
-        String url = "jdbc:db2://"
-                + db2Parameters.getHostname()
-                + ":" + db2Parameters.getPort()
-                + "/" + db2Parameters.getLocation();
+
+        String url = "jdbc:db2://172.20.2.116:5035/DALLASB";
         Properties properties = new Properties();
-        properties.setProperty("user", db2Parameters.getUserId());
-        properties.setProperty("password", db2Parameters.getPassword());
+        properties.setProperty("user", "LAPUSHA");
+        properties.setProperty("password", "LAPUSHA2");
         properties.setProperty("connectionTimeout", "5000");
         properties.setProperty("commandTimeout", "5000");
         this.connection = DriverManager.getConnection(url, properties);
@@ -25,6 +23,11 @@ public class DB2Service {
         checkStoredProcedureAvailability();
         this.statement = this.connection.createStatement();
     }
+
+    private void checkStoredProcedureAvailability() {
+
+    }
+
     public String execute(String command) throws SQLException {
         CallableStatement callableStatement = this.prepareCallableStatement(command, null);
         callableStatement.execute();
