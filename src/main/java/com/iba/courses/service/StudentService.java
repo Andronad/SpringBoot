@@ -14,7 +14,10 @@ public class StudentService {
 
     public List<Student>  getAllStudents(){
         System.out.println("Service");
-        Student s=new Student("Andrei Minzer","andronad","andronad","BSU",4);
+        return studentRepository.getAllStudents();
+    }
+    public List<Student>  saveStudent(){
+        Student s=new Student("Pechkin Igor","pech","asdqweasd","BSU",3);
         studentRepository.save(s);
         return studentRepository.getAllStudents();
     }
